@@ -1,0 +1,21 @@
+version: '0.1'
+
+services:
+  application:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: application
+    hostname: application
+    image: application
+    ports:
+      - '5002:3000'
+    volumes:
+      - ./src:/app/src
+      - ./node_modules:/app/node_modules
+#
+    networks:
+      - devnet
+networks:
+  devnet:
+    external: true
