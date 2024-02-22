@@ -13,7 +13,7 @@ async function bootstrap() {
 
   // Set port of config 
   const configService = app.get(ConfigService);
-  const appConfig = configService.get<AppConfig>(ConfigKey.App)
+  const appConfig = configService.get<AppConfig>(ConfigKey.APP)
 console.log(appConfig.port)
   await app.listen(3000);
 

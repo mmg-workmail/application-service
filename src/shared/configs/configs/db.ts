@@ -3,7 +3,7 @@ import { ConfigKey } from "../enum";
 import { DatabaseConfig } from "../interface";
 
  const DBConfig = registerAs(
-    ConfigKey.Db, () : DatabaseConfig => ({
+    ConfigKey.DB, () : DatabaseConfig => ({
       host: process.env.DATABASE_HOST,
       port: Number(process.env.DATABASE_PORT),
       username: process.env.DATABASE_USERNAME,

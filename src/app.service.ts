@@ -7,7 +7,7 @@ import { ConfigKey } from './shared/configs/enum';
 export class AppService {
   private appConfig: AppConfig 
   constructor(private configService: ConfigService) {
-     this.appConfig = this.configService.get<AppConfig>(ConfigKey.App)
+     this.appConfig = this.configService.get<AppConfig>(ConfigKey.APP)
   }
   getHello(): string {
     return this.appConfig.appName;

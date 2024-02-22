@@ -3,10 +3,10 @@ import { ConfigKey, Environment } from "../enum";
 import { AppConfig } from "../interface";
 
 const APPConfig = registerAs(
-    ConfigKey.App, (): AppConfig => ({
+    ConfigKey.APP, (): AppConfig => ({
       env:
         Environment[process.env.NODE_ENV as keyof typeof Environment] ||
-        Environment.Development,
+        Environment.DEVELOPMENT,
       port: Number(process.env.APP_PORT),
       appName: process.env.APP_NAME,
     }),
