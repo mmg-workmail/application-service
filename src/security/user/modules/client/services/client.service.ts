@@ -20,5 +20,12 @@ export class ClientService {
         user.gender = createUserDto.gender;
     
         return this.usersRepository.save(user);
-      }  
+      }
+      
+      async findOne(id: number): Promise<User | undefined> {
+        return this.usersRepository.findOne({ where: { id } });
+      }
+      async findByUsername(username: string): Promise<User | undefined> {
+        return this.usersRepository.findOne({ where: { username } });
+      }
 }
