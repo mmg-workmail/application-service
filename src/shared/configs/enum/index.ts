@@ -1,6 +1,7 @@
 export enum ConfigKey {
   APP = 'APP',
   DB = 'DB',
+  CACHE_MANAGER = 'CACHE_MANAGER',
   VALIDATION = 'VALIDATION'
 }
 
