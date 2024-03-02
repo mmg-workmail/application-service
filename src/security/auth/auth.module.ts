@@ -8,9 +8,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
-import { JwtStrategy } from './strategy/jwt.strategy';
-import { RefreshTokenIdsStorage } from './refresh-token-ids-storage';
-import { JwtRefreshTokenStrategy } from './strategy/jwt-refresh-token.strategy';
+import { JwtStrategy } from './strategies/jwt.strategy';
+import { JwtRefreshTokenStrategy } from './strategies/jwt-refresh-token.strategy';
+import { RefreshTokenIdsStorage } from './storage/refresh-token-ids-storage';
 
 @Module({
   imports: [
@@ -25,13 +25,13 @@ import { JwtRefreshTokenStrategy } from './strategy/jwt-refresh-token.strategy';
   ],
   controllers: [AuthController],
   providers: [
-    AuthService, 
+    AuthService,
     UserClientService,
 
     JwtStrategy,
+    JwtRefreshTokenStrategy,
     RefreshTokenIdsStorage,
-    JwtRefreshTokenStrategy
-    
+
   ],
   exports: [AuthService],
 })

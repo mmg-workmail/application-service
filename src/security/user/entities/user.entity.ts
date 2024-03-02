@@ -1,4 +1,4 @@
-import { Column, Index, Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, AfterInsert, AfterUpdate,  BeforeInsert, BeforeUpdate} from 'typeorm';
+import { Column, Index, Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, AfterInsert, AfterUpdate, BeforeInsert, BeforeUpdate } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 
 @Entity()
@@ -11,7 +11,7 @@ export class User {
 
   @Column({ type: 'varchar', length: 30, nullable: true, name: 'first_name' })
   firstName: string;
-  
+
   @Column({ type: 'varchar', length: 30, nullable: true, name: 'last_name' })
   lastName: string;
 
@@ -48,7 +48,7 @@ export class User {
   @AfterUpdate()
   @AfterInsert()
   private removePassword(): void {
-    delete this.password 
+    delete this.password
   }
 
   async bcryptPassword(password: string): Promise<string> {
@@ -57,6 +57,6 @@ export class User {
   }
 
   async validatePassword(password: string): Promise<boolean> {
-    return bcrypt.compare(password, this.password);
+    return bcrypt.compare(password, this.password, () => { });
   }
 }

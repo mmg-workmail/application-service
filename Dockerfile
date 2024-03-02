@@ -1,4 +1,4 @@
-FROM node:19
+FROM node:18
 
 WORKDIR /app
 
@@ -6,7 +6,7 @@ WORKDIR /app
 RUN npm uninstall bcrypt
 
 # install the bcrypt modules for the machine
-RUN npm install bcrypt
+RUN npm install bcrypt@5.1.0
 
 COPY package*.json ./
 
@@ -16,6 +16,6 @@ RUN npm rebuild bcrypt
 
 COPY . .
 
-RUN npm run build
+#RUN npm run build
 
 CMD [ "npm", "run", "start:dev" ]
