@@ -35,18 +35,20 @@ export class AuthController {
     return this.authService.signIn(signInDto);
   }
 
-  @UseGuards(JwtRefreshTokenGuard)
-  @Post('refresh-token')
-  async refreshToken(@Body() refreshTokenDto: RefreshTokenDto) {
-    return this.authService.refreshAccessToken(refreshTokenDto.refresh_token);
-  }
-
   @UseGuards(JwtAuthGuard)
-  @Post('invalidate-token')
+  @Post('logout')
   async invalidateToken(@Headers('Authorization') authorization: string) {
     const token = authorization.split(' ')[1];
 
     await this.authService.invalidateToken(token);
     return { message: 'Token invalidated successfully' };
   }
+
+  @UseGuards(JwtRefreshTokenGuard)
+  @Post('refresh-token')
+  async refreshToken(@Body() refreshTokenDto: RefreshTokenDto) {
+    return this.authService.refreshAccessToken(refreshTokenDto.refresh_token);
+  }
+
+
 }
