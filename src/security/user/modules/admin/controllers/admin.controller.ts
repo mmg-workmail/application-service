@@ -7,8 +7,7 @@ import {
   Param,
   Delete,
   Query,
-  UseGuards,
-
+  UseGuards
 } from '@nestjs/common';
 
 import { AdminService } from '../services/admin.service';
@@ -16,10 +15,14 @@ import { CreateUserDto } from '../dto/create-user.dto';
 import { UpdateUserDto } from '../dto/update-user.dto';
 import { DatatableDto } from 'src/common/dto/datatable.dto';
 import { JwtAuthGuard } from 'src/security/auth/guards/jwt-auth.guard';
+import { Roles } from 'src/security/acl/decorators/roles.decorator';
+import { Role } from 'src/security/acl/enums/role.enum';
+import { RoleGuard } from 'src/security/acl/guards/role.guard';
 
 
 @Controller('admin/users')
-@UseGuards(JwtAuthGuard)
+@Roles(Role.USER)
+@UseGuards(JwtAuthGuard, RoleGuard)
 export class AdminController {
   constructor(private readonly adminService: AdminService) { }
 

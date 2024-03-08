@@ -50,9 +50,10 @@ export class AdminService {
     const user: User = new User();
     user.firstName = updateUserDto.firstName;
     user.lastName = updateUserDto.lastName;
-    user.age = updateUserDto.age;
+    user.age = updateUserDto.age || 0;
     user.email = updateUserDto.email;
     user.username = updateUserDto.username;
+    user.role = updateUserDto.role
     if(updateUserDto.password) {
       user.password = await user.bcryptPassword(updateUserDto.password);
     }
@@ -61,6 +62,6 @@ export class AdminService {
   }
 
   remove(id: number): Promise<{ affected?: number }> {
-    return this.usersRepository.delete(id);
+    return this.usersRepository.softDelete(id);
   }
 }

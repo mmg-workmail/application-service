@@ -7,6 +7,7 @@ import {
     IsString,
     MinLength
   } from 'class-validator';
+import { Gender } from 'src/security/user/enums/gender.enum';
   
   
   
@@ -44,8 +45,8 @@ import {
   
   
     @IsString()
-    @IsEnum(['f', 'm', 'u'])
-    gender: string = 'u';
+    @IsEnum(Gender)
+    gender: Gender = Gender.U;
   
     @IsNotEmpty()
     @MinLength(7, { message: 'Name must have atleast 2 characters.' })

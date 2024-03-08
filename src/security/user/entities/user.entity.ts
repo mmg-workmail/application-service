@@ -1,5 +1,8 @@
 import { Column, Index, Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, AfterInsert, AfterUpdate, BeforeInsert, BeforeUpdate } from 'typeorm';
 import * as bcrypt from 'bcrypt';
+import { Role } from 'src/security/acl/enums/role.enum';
+import { Status } from '../enums/status.enum';
+import { Gender } from '../enums/gender.enum';
 
 @Entity()
 export class User {
@@ -29,14 +32,17 @@ export class User {
   @Column({ type: 'varchar', select: false })
   password: string;
 
-  @Column({ type: 'enum', enum: ['m', 'f', 'u'], default: 'u' })
-  gender: string;
+  @Column({ type: 'enum', enum: Gender, default: Gender.U })
+  gender: Gender;
 
-  @Column({ type: 'enum', enum: ['active', 'deactive', 'blocked'], default: 'active' })
-  status: string;
+  @Column({ type: 'enum', enum: Status, default: Status.ACTIVE })
+  status: Status;
 
   @Column({ type: 'bool', default: false, name: 'is_verified' })
   isVerified: string;
+
+  @Column({ type: 'enum', enum: Role, default: Role.USER, name: 'role' })
+  role: Role;
 
 
   @CreateDateColumn({ type: 'timestamp', name: 'created_at' })
@@ -48,7 +54,9 @@ export class User {
   @AfterUpdate()
   @AfterInsert()
   private removePassword(): void {
-    delete this.password
+    if (this.password) {
+      delete this.password
+    }
   }
 
   async bcryptPassword(password: string): Promise<string> {
