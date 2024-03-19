@@ -17,7 +17,6 @@ export class AuthService {
   constructor(
     private readonly jwtService: JwtService,
     private readonly userClientService: UserClientService,
-    private readonly configService: ConfigService,
     private readonly refreshTokenIdsStorage: RefreshTokenIdsStorage,
   ) { }
 

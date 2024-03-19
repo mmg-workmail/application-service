@@ -17,6 +17,7 @@ import { JwtRefreshTokenGuard } from '../guards/jwt-refresh-token.guard';
 import { RefreshTokenDto } from '../dto/refresh-token.dto';
 import { SignUpDto } from '../dto/sign-up.dto';
 import { SignInDto } from '../dto/sign-in.dto';
+import {  ChangePasswordDto } from '../dto/change-password.dto';
 
 @Controller('client/auth')
 export class AuthController {
@@ -50,5 +51,26 @@ export class AuthController {
     return this.authService.refreshAccessToken(refreshTokenDto.refresh_token);
   }
 
+  @Post('login-with-phone')
+  async loginWithPhone() {
+
+  }
+
+  @Post('login-with-mail') 
+  async loginWithMail() {
+    
+  }
+
+  @Post('change-password')
+  async changePassword(@Body() changePasswordDto: ChangePasswordDto) {
+
+  }
+
+  @Post('reset-password')
+  async resetPassword() {
+
+  }
+
+  
 
 }

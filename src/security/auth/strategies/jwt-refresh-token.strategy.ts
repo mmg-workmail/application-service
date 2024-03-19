@@ -5,6 +5,9 @@ import { JwtService } from '@nestjs/jwt';
 import { ClientService as UserClientService } from 'src/security/user/modules/client/services/client.service';
 import { Logger } from '@nestjs/common';
 import { JwtPayload } from '../interfaces/jwt-payload.interface';
+import { ConfigService } from '@nestjs/config';
+import { Auth } from 'src/shared/configs/interface';
+import { ConfigKey } from 'src/shared/configs/enum';
 
 @Injectable()
 export class JwtRefreshTokenStrategy extends PassportStrategy(
@@ -14,13 +17,13 @@ export class JwtRefreshTokenStrategy extends PassportStrategy(
     private readonly logger = new Logger(JwtRefreshTokenStrategy.name);
 
     constructor(
-        private readonly jwtService: JwtService,
         private readonly usersService: UserClientService,
+        configService: ConfigService
     ) {
         super({
             jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
             ignoreExpiration: false,
-            secretOrKey: process.env.JWT_SECRET || 'secret',
+             secretOrKey: configService.get<Auth>(ConfigKey.AUTH).secret,
         });
         this.logger.warn('JwtRefreshTokenStrategy initialized');
     }

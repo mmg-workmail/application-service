@@ -11,6 +11,9 @@ import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { JwtRefreshTokenStrategy } from './strategies/jwt-refresh-token.strategy';
 import { RefreshTokenIdsStorage } from './storage/refresh-token-ids-storage';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ConfigKey } from 'src/shared/configs/enum';
+import { Auth } from 'src/shared/configs/interface';
 
 @Module({
   imports: [
@@ -18,9 +21,18 @@ import { RefreshTokenIdsStorage } from './storage/refresh-token-ids-storage';
     UserClientModule,
 
     PassportModule.register({ defaultStrategy: 'jwt' }),
-    JwtModule.register({
-      secret: 'secret',
-      signOptions: { expiresIn: '1h' },
+    JwtModule.registerAsync({
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => {
+        const authConfig = configService.get<Auth>(ConfigKey.AUTH)
+        return {
+          secret: authConfig.secret,
+          signOptions: {
+              expiresIn: authConfig.expiresIn,
+          },
+        }
+      },
+      inject: [ConfigService],
     }),
   ],
   controllers: [AuthController],

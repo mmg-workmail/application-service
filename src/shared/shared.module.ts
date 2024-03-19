@@ -5,6 +5,6 @@ import { SecurityModule } from '../security/security.module';
 import { CacheManagerModule } from './cache-manager/cache-manager.module';
 
 @Module({
-    imports: [ConfigsModule, DatabaseModule, SecurityModule, CacheManagerModule]
+    imports: [ConfigsModule, DatabaseModule, SecurityModule, CacheManagerModule,]
 })
 export class SharedModule {}
